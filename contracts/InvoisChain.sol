@@ -46,7 +46,7 @@ contract InvoiceChain is ReentrancyGuard {
     function validateInvoiceID(uint ivId) private view {
         if (ivId == 0) revert Errors.InvalidInvoiceId();
         if (invoices[ivId].isPaid) {
-            revert Errors.InvalidPaidForAlready();
+            revert Errors.InvoicePaidForAlready();
         }
     }
 
