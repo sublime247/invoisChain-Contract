@@ -5,7 +5,7 @@ library Errors{
     error ZeroAddressDetected();
     error InsufficientBalanace();
     error InvalidInvoiceId();
-    error InvalidPaidForAlready();
+    error InvoicePaidForAlready();
 
 }
 
