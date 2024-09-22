@@ -3,9 +3,13 @@ pragma solidity ^0.8.24;
 
 import "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
+// import from github 
+
 import {Errors, Events} from "./Utils.sol";
 
 contract InvoiceChain is ReentrancyGuard {
+
+
     /*---------What makes an invoice-------------*/
     struct Invoice {
         address buyer;
@@ -23,12 +27,21 @@ contract InvoiceChain is ReentrancyGuard {
 
     constructor() {}
 
+
+
+
+
+/*--------Zero Address Check------------------*/
     function zeroAddress(address _add) private pure {
         if (_add == address(0)) {
             revert Errors.ZeroAddressDetected();
         }
     }
 
+
+
+
+/*--------Balance and Approval Check------------------*/
     function validateBalanceAndApproval(address _tokenAddress, address from, uint _amt) private view {
         IERC20 token = IERC20(_tokenAddress);
         uint bal = token.balanceOf(from);
@@ -43,6 +56,9 @@ contract InvoiceChain is ReentrancyGuard {
         }
     }
 
+
+
+/*--------Invoice ID Check------------------*/
     function validateInvoiceID(uint ivId) private view {
         if (ivId == 0) revert Errors.InvalidInvoiceId();
         if (invoices[ivId].isPaid) {
@@ -50,6 +66,10 @@ contract InvoiceChain is ReentrancyGuard {
         }
     }
 
+
+
+
+/*--------Invoice Creation------------------*/
     function createInvoice(
         address _buyerAddress,
         string[] memory _goods,
@@ -73,6 +93,9 @@ contract InvoiceChain is ReentrancyGuard {
         emit Events.InvoiceCreatedSuccessfully(_buyerAddress, _amt, invId);
     }
 
+
+
+/*--------Payment with ERC20Token------------------*/
     function payInvoice(uint _invoiceId) external nonReentrant {
         zeroAddress(msg.sender);
         validateInvoiceID(_invoiceId);
@@ -86,6 +109,11 @@ contract InvoiceChain is ReentrancyGuard {
         emit Events.PaymentSuccessful(_invoice.seller, _invoice.amount, _invoiceId);
     }
 
+
+
+
+
+/*--------Payment with Ether------------------*/
     function payWithEther(uint _invoiceId) external payable nonReentrant {
         zeroAddress(msg.sender);
         validateInvoiceID(_invoiceId);
@@ -100,6 +128,9 @@ contract InvoiceChain is ReentrancyGuard {
         emit Events.PaymentSuccessful(_invoice.seller, _invoice.amount, _invoiceId);
     }
 
+
+
+/*--------Withdraw Ether buy seller ------------------*/
     function sendEtherToSeller(uint _invoiceId) external nonReentrant {
         Invoice storage _invoice = invoices[_invoiceId];
         require(msg.sender == _invoice.seller, "Only the seller can withdraw funds");
@@ -114,6 +145,8 @@ contract InvoiceChain is ReentrancyGuard {
         emit Events.PaymentSuccessful(_invoice.seller, amount, _invoiceId);
     }
 
+
+/*-------------geberate invoice-----------*/
     function generateInvoice(uint _invoiceId) external view returns(Invoice memory) {
         return invoices[_invoiceId];
     }

@@ -1,10 +1,15 @@
 {
   "name": "hardhat-project",
   "devDependencies": {
+    "@nomicfoundation/hardhat-ethers": "^3.0.8",
     "@nomicfoundation/hardhat-toolbox": "^5.0.0",
-    "hardhat": "^2.22.10"
+    "ethers": "^6.13.2",
+    "hardhat": "^2.22.11"
   },
   "dependencies": {
-    "@openzeppelin/contracts": "^5.0.2"
+    "@chainlink/contracts": "^1.2.0",
+    "@chainlink/contracts-ccip": "^1.4.0",
+    "@openzeppelin/contracts": "^5.0.2",
+    "dotenv": "^16.4.5"
   }
 }
