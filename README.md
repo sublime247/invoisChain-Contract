@@ -21,7 +21,7 @@ We are building a decentralized invoicing system with the goal of solving trust 
 
 - Key features include:
    - Create and store invoices on the blockchain
-   - Payment of invoices via both ERC20 tokens (LISK) and Ether (ETH)
+   - Payment of invoices via both ERC20 tokens (ARBITRUM) and Ether (ETH)
    - Recording customer details and associating them with invoice transactions
    - Secure fund transfers from buyer to seller once an invoice is paid
    - Invoice creation: Sellers can create invoices for buyers, detailing goods, the total amount, and other information
