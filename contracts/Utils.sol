@@ -14,5 +14,6 @@ library Errors{
 library Events{
     event InvoiceCreatedSuccessfully(address indexed _add , uint _amt, uint _invoiceId);
     event PaymentSuccessful(address indexed _add, uint _amt, uint _invoiceId);
+    event UserCreatedSuccessfully();
 
 }

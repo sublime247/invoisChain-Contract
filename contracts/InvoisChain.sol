@@ -5,6 +5,8 @@ import "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import {Errors, Events} from "./Utils.sol";
 
+// contract address
+// 0xcfe275F79ee68D6A861bA33081dcc1c8963d32f7
 contract InvoiceChain is ReentrancyGuard {
     /*---------What makes an invoice-------------*/
     struct Invoice {
@@ -19,9 +21,22 @@ contract InvoiceChain is ReentrancyGuard {
         uint invoiceId;
     }
 
+    struct CustomerDetails {
+        string customerName;
+        string customerEmail;
+        string organization;
+        string phoneNumber;
+        address walletAddress;
+        uint256 customerId;
+        bool isCreated;
+    }
+
     mapping(uint256 => Invoice) public invoices;
     Invoice[] listOfInvoice;
     uint256 _invoiceCount;
+    CustomerDetails[] listOfCustomers;
+    uint256 _customerCount;
+    mapping(uint256 => CustomerDetails) public customers;
 
     constructor() {}
 
@@ -66,7 +81,7 @@ contract InvoiceChain is ReentrancyGuard {
         zeroAddress(_tokenAddress);
         zeroAddress(_buyerAddress);
 
-        uint256 _invoiceId = _invoiceCount++;
+        uint256 _invoiceId = ++_invoiceCount;
         Invoice memory _invoice = Invoice({
             buyer: _buyerAddress,
             seller: msg.sender,
@@ -166,5 +181,31 @@ contract InvoiceChain is ReentrancyGuard {
 
     function generateAllInvoices() external view returns (Invoice[] memory) {
         return listOfInvoice;
+    }
+
+    function createCustomer(
+        string memory _name,
+        string memory _email,
+        string memory _organization,
+        string memory _phone,
+        address _walletAddress
+    ) external {
+        uint256 _customerId = ++_customerCount;
+
+        require(!customers[_customerId].isCreated, "Customer Created Already");
+
+        CustomerDetails memory _customerdetails = CustomerDetails({
+            customerName: _name,
+            customerEmail: _email,
+            organization: _organization,
+            phoneNumber: _phone,
+            walletAddress: _walletAddress,
+            isCreated: true,
+            customerId: _customerId
+        });
+        customers[_customerId] = _customerdetails;
+
+        listOfCustomers.push(_customerdetails);
+        emit Events.UserCreatedSuccessfully();
     }
 }
