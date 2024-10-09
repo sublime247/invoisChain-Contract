@@ -25,7 +25,7 @@ We are building a decentralized invoicing system with the goal of solving trust 
    - Recording customer details and associating them with invoice transactions
    - Secure fund transfers from buyer to seller once an invoice is paid
    - Invoice creation: Sellers can create invoices for buyers, detailing goods, the total amount, and other information
-   - Payment in cryptocurrency: Buyers can pay invoices in LISK
+   - Payment in cryptocurrency: Buyers can pay invoices in (ARBITRUM)
    - Payment in Ether: Buyers also have the option to pay in ETH directly
    - Customer registration: The system allows customer registration to link customer details with invoice transactions
 
@@ -34,11 +34,11 @@ We are building a decentralized invoicing system with the goal of solving trust 
 - Solidity
 - Next.js
 - Wagmi
-- Lisk-sepolia
+- ArbitrumSepolia
 
 ## Smart Contract
 
-Our smart contract is built on the Ethereum blockchain and deployed on Lisk. Leveraging the power of smart contracts, this platform ensures trust, transparency, and accountability by recording all invoice data on-chain.
+Our smart contract is built on the Ethereum blockchain and deployed on (ARBITRUM). Leveraging the power of smart contracts, this platform ensures trust, transparency, and accountability by recording all invoice data on-chain.
 
 ## Business Model
 
